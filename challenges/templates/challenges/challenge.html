@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css_files %}
+    <link href="{% static "challenges/index.css" %}" rel="stylesheet" />
+    <link href="{% static "challenges/includes/header.css" %}" rel="stylesheet" />
+{% endblock  %}
+
+
+{% block page_title %}
+    {{ month_name|title }} Challenge
+{% endblock  %}
+
+{% block content %}
+    {% include "challenges/includes/header.html" %}
+
+    <!--django template filters: search in google-->
+    <h1>{{ month_name|title }} Challenge</h1>
+    <!--Marcador de posicion (tambien conocido como sintaxis de interpolacion) especial de Django. 
+    Nota: jamas de los jamases debes usar sintaxis de Django en comentarios, siempre produce errores y 
+    lo peor es que ese codigo de los comentarios sera ejecutado igual-->
+    {% if text is not None %}
+        <h2>{{ text }}</h2>
+    {% else %}
+        <p class="fallback">There is no Challenge for this month yet!</p>
+    {% endif %}
+{% endblock  %}

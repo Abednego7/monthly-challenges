@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+<!--Cargar archivos estaticos-->
+{% load static %}
+
+{% block css_files %}
+    <link href="{% static "challenges/challenges.css" %}" rel="stylesheet" />
+    <link href="{% static "challenges/includes/header.css" %}" rel="stylesheet" />
+{% endblock  %}
+
+
+{% block page_title %}All Challenges{% endblock  %}
+
+{% block content %}
+    <!--La etiqueta de abajo nos ayuda a incrustar fragmentos de codigo reutilizables-->
+    {% include "challenges/includes/header.html" %}
+    <!--For block code:
+    - 'months' es la key que se envio en el context.
+
+    - Enlace dinamico en href: anteriormente haciamos uso de 'reverse'; esto no es posible en la plantilla. En este caso podemos 
+    hacer uso de la etiqueta 'url' de template.
+
+    - A diferencia de 'reverse' aqui no pasamos la lista, sino mas bien, le pasamos argumentos si fuese necesario; 
+    en este caso le pasaremos 'un solo argumento' ya que en las urls.py, solo estamos recibiendo un argumento -> <str:month>
+
+    Nota: el argumento de <str:month> no es el mismo que se le pasara a 'url - dynamic_path - month' es necesario recordar que 
+    en las urls.py la parte de codigo que recibe el argumento de <str:month> solo recibe 'un dato' y en este ejemplo 
+    nosotros le enviaremos ese dato con el uso de la variable 'month del for', ya que esa variable contiene los valores dinamicamente 
+    para ser usados como parte de la url-->
+    <ul>
+        {% for month in months %}
+            <li><a href="{% url "dynamic_path" month %}">{{ month|title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock  %}
